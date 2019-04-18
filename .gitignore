@@ -1,0 +1,8 @@
+assets/
+assets_unpacked/
+bin/
+build/
+build-external/
+gen/
+halley/
+halley-external/

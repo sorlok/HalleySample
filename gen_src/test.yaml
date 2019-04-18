@@ -1,0 +1,99 @@
+---
+
+component:
+  name: Position
+  members:
+    - position: 'Halley::Vector2f'
+
+---
+
+component:
+  name: Velocity
+  members:
+    - velocity: 'Halley::Vector2f'
+    - targetPosition: 'Halley::Vector2f'
+
+---
+
+component:
+  name: Sprite
+  members:
+    - sprite: 'Halley::Sprite'
+    - layer: int
+
+---
+
+component:
+  name: SpriteAnimation
+  members:
+    - player: 'Halley::AnimationPlayer'
+
+---
+
+component:
+  name: Collider
+  members:
+    - rect: Halley::Rect4f
+    - layer: int
+    - trigger: bool
+    - isStatic: bool
+
+---
+
+component:
+  name: Mob
+  members:
+    - moveDir: Halley::Vector2f
+    - faceDir: Halley::Vector2f
+    - accel: float
+    - maxSpeed: float
+
+---
+
+component:
+  name: Shooter
+  members:
+    - shooting: bool
+    - shootDir: 'Halley::Vector2f'
+    - cooldown: float
+
+---
+
+component:
+  name: PlayerInput
+  members:
+    - input: 'std::shared_ptr<Halley::InputVirtual>'
+
+---
+
+system:
+  name: PlayerInput
+  families:
+    - main:
+      - Mob: write
+      - Shooter: write
+      - PlayerInput: read
+
+---
+
+system:
+  name: SpriteAnimation
+  families:
+    - main:
+      - Sprite: write
+      - SpriteAnimation: write
+      - Mob: read
+
+---
+
+system:
+  name: SpriteRender
+  families:
+    - mything:
+      - Position: read
+      - Sprite: write
+  method: render
+  strategy: global
+
+
+...

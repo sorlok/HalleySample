@@ -1,0 +1,31 @@
+---
+timelines:
+  fixedUpdate:
+    # Input phase:
+    - PlayerInput
+    #- PlayerSeeking
+    #- Mob
+    
+    # Movement phase:
+    #- IntegrateVelocity
+    #- CheckStaticCollision
+    #- Movement
+    #- CheckDynamicCollision
+    
+    # General phase:
+    #- Repulsion
+    #- Shooter
+    #- Bullet
+    #- Damage
+    #- EnemyDeath
+    #- TTL
+    #- EnemySpawning
+    
+  variableUpdate:
+    # Pre-render phase:
+    #- Flashing
+    - SpriteAnimation
+    
+  render:
+    - SpriteRender
+...

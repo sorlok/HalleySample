@@ -1,0 +1,15 @@
+---
+name: "Hero"
+spriteSheet: "some_sprite.json"
+material: "Halley/Sprite"
+directions:
+  - { name: "U" }
+  - { name: "R" }
+  - { name: "D" }
+  - { name: "L" }
+sequences:
+  - name: "idle"
+    fps: 12
+    fileName: "%dir%_%f:01%.png"
+    frames: [0-5]
+...
