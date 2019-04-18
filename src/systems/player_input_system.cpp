@@ -16,10 +16,11 @@ public:
     //Halley::Vector2f faceDir = shooting ? shootDir : moveDir;
 
     mainFamily.mob.moveDir = moveDir;
+    Halley::Vector2f faceDir = moveDir;
 		
-    //if (faceDir.squaredLength() > 0.1f) {
-    //  entity.mob.faceDir = faceDir.unit();
-    //}
+    if (faceDir.squaredLength() > 0.1f) {
+      mainFamily.mob.faceDir = faceDir.unit();
+    }
 
     //entity.shooter.shooting = shooting;
     //entity.shooter.shootDir = faceDir.unit();

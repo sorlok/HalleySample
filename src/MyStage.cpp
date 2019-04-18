@@ -65,7 +65,7 @@ void MyStage::createPlayer(Vector2f pos) {
 //    .addComponent(VelocityComponent(Vector2f(0, 0), Vector2f()))
     .addComponent(SpriteAnimationComponent(AnimationPlayer(getResource<Animation>("Hero"))))
     .addComponent(SpriteComponent(Sprite()
-      .setSprite(getResources(), "some_sprite.json", "U_0.png")
+      //.setSprite(getResources(), "some_sprite.json", "U_0.png")
       , 0))
     .addComponent(MobComponent(Vector2f(), Vector2f(), 50, 300))
     .addComponent(PlayerInputComponent(input))
