@@ -10,6 +10,10 @@ directions:
 sequences:
   - name: "idle"
     fps: 12
+    fileName: "%dir%_0.png"
+    frames: [0-5]
+  - name: "walking"
+    fps: 12
     fileName: "%dir%_%f:01%.png"
     frames: [0-5]
 ...
