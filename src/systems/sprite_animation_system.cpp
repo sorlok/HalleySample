@@ -12,7 +12,7 @@ public:
 		auto& player = mainFamily.spriteAnimation.player;
 		player.setDirection(dir);
 		player.update(time);
-//		player.updateSprite(sprite); // TODO: ENABLE
+		player.updateSprite(sprite);
 	}
 };
 
