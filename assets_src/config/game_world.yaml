@@ -4,12 +4,12 @@ timelines:
     # Input phase:
     - PlayerInput
     #- PlayerSeeking
-    #- Mob
+    - Mob
     
     # Movement phase:
     #- IntegrateVelocity
     #- CheckStaticCollision
-    #- Movement
+    - Movement
     #- CheckDynamicCollision
     
     # General phase:

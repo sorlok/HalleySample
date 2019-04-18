@@ -67,6 +67,24 @@ component:
 ---
 
 system:
+  name: Movement
+  families:
+    - main:
+      - Position: write
+      - Velocity: read
+
+---
+
+system:
+  name: Mob
+  families:
+    - main:
+      - Mob: read
+      - Velocity: write
+
+---
+
+system:
   name: PlayerInput
   families:
     - main:

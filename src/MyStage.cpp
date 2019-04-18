@@ -2,6 +2,7 @@
 #include "registry.h"
 
 #include <components/position_component.h>
+#include <components/velocity_component.h>
 #include <components/sprite_component.h>
 #include <components/sprite_animation_component.h>
 #include <components/collider_component.h>
@@ -60,9 +61,20 @@ void MyStage::createPlayer(Vector2f pos) {
 //auto blah = getResource<Animation>("Hero");
 //std::cout <<"BLAH: " <<blah->getName() <<std::endl;
 
+  // NOTE: Add a non-player.
+  world->createEntity()
+    .addComponent(PositionComponent(pos-Vector2f(100,100)))
+    .addComponent(SpriteAnimationComponent(AnimationPlayer(getResource<Animation>("Hero"))))
+    .addComponent(SpriteComponent(Sprite(), 0))
+    .addComponent(MobComponent(Vector2f(), Vector2f(), 50, 300))
+    .addComponent(ShooterComponent(false, Vector2f(), 0))
+    .addComponent(ColliderComponent(Rect4f(-13, -13, 26, 26), 0, false, false))
+  ;
+
+
   auto pl = world->createEntity()
     .addComponent(PositionComponent(pos))
-//    .addComponent(VelocityComponent(Vector2f(0, 0), Vector2f()))
+    .addComponent(VelocityComponent(Vector2f(0, 0), Vector2f()))
     .addComponent(SpriteAnimationComponent(AnimationPlayer(getResource<Animation>("Hero"))))
     .addComponent(SpriteComponent(Sprite()
       //.setSprite(getResources(), "some_sprite.json", "U_0.png")
@@ -77,6 +89,9 @@ void MyStage::createPlayer(Vector2f pos) {
   ;
 
   playerId = pl.getEntityId();
+
+
+
 
 }
 

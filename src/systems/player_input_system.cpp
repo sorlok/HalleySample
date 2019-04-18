@@ -5,9 +5,6 @@ public:
 
   //void update(Halley::Time, MainFamily& entity) {
   void update(Halley::Time time, MainFamily& mainFamily) {
-
-
-
     auto& input = mainFamily.playerInput.input;
     auto moveDir = Halley::Vector2f(input->getAxis(0), input->getAxis(1));
     //auto shootDir = Halley::Vector2f(input->getAxis(2), input->getAxis(3));

@@ -1,0 +1,2 @@
+# Use a command like this to build
+cmake -DCMAKE_BUILD_TYPE=Debug  -DBOOST_ROOT=/opt/boost_169 -DBUILD_HALLEY_TESTS=0 ../
