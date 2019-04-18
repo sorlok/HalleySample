@@ -57,7 +57,7 @@ void MyStage::createPlayer(Vector2f pos) {
   input->bindAxisButton(3, keyboard, Keys::Up, Keys::Down);
 
 // TODO: This is what crashes.
-auto blah = getResource<Animation>("Hero");
+//auto blah = getResource<Animation>("Hero");
 //std::cout <<"BLAH: " <<blah->getName() <<std::endl;
 
   auto pl = world->createEntity()

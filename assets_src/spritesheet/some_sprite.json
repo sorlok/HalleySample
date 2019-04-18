@@ -228,7 +228,7 @@
 	"version": "1.0",
 	"image": "some_sprite.png",
 	"format": "RGBA8888",
-	"size": {"w":192,"h":192},
+	"size": {"w":256,"h":256},
 	"scale": "1",
 	"smartupdate": "Nope"
 }
