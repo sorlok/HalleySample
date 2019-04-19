@@ -9,6 +9,7 @@
 #include <components/mob_component.h>
 #include <components/shooter_component.h>
 #include <components/player_input_component.h>
+#include "types/GridAnimationPlayer.hpp"
 
 
 using namespace Halley;
@@ -62,21 +63,29 @@ void MyStage::createPlayer(Vector2f pos) {
 //std::cout <<"BLAH: " <<blah->getName() <<std::endl;
 
   // NOTE: Add a non-player.
+/*
   world->createEntity()
     .addComponent(PositionComponent(pos-Vector2f(100,100)))
-    .addComponent(SpriteAnimationComponent(AnimationPlayer(getResource<Animation>("Hero"))))
-    .addComponent(SpriteComponent(Sprite(), 0))
+    //.addComponent(SpriteAnimationComponent(AnimationPlayer(getResource<Animation>("Hero"))))
+    .addComponent(SpriteComponent(Sprite()
+      .setImage(getResources(), "some_sprite.png")
+      , 0))
     .addComponent(MobComponent(Vector2f(), Vector2f(), 50, 300))
     .addComponent(ShooterComponent(false, Vector2f(), 0))
     .addComponent(ColliderComponent(Rect4f(-13, -13, 26, 26), 0, false, false))
   ;
-
+*/
 
   auto pl = world->createEntity()
     .addComponent(PositionComponent(pos))
     .addComponent(VelocityComponent(Vector2f(0, 0), Vector2f()))
-    .addComponent(SpriteAnimationComponent(AnimationPlayer(getResource<Animation>("Hero"))))
+//    .addComponent(SpriteAnimationComponent(AnimationPlayer(getResource<Animation>("Hero"))))
+    .addComponent(SpriteAnimationComponent(GridAnimationPlayer(32,48)))
+
+
+
     .addComponent(SpriteComponent(Sprite()
+      .setImage(getResources(), "some_sprite.png")
       //.setSprite(getResources(), "some_sprite.json", "U_0.png")
       , 0))
     .addComponent(MobComponent(Vector2f(), Vector2f(), 50, 300))

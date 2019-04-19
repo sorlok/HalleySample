@@ -1,5 +1,11 @@
 ---
 
+type:
+  name: GridAnimationPlayer
+  include: "src/types/GridAnimationPlayer.hpp"
+
+---
+
 component:
   name: Position
   members:
@@ -26,7 +32,7 @@ component:
 component:
   name: SpriteAnimation
   members:
-    - player: 'Halley::AnimationPlayer'
+    - player: 'GridAnimationPlayer'
 
 ---
 
