@@ -14,11 +14,12 @@ class GridAnimationPlayer {
 public:
 
   // frameSize = size of a single frame in the sequence (e.g., 32x48)
+  // imageSize = the original image size
   // gridCount = number of frames in each row/column (e.g., 3 horiz, 2 vert)
   // speed = how much of 1.0f to update per second
   // rowNames = optional, list of names to use for each row (e.g., "up,down,left,right")
   GridAnimationPlayer() {}
-  GridAnimationPlayer(Halley::Vector2i frameSize, Halley::Vector2i gridCount, double speed, std::vector<std::string> rowNames = {});
+  GridAnimationPlayer(Halley::Vector2i frameSize, Halley::Vector2i imageSize, Halley::Vector2i gridCount, double speed, std::vector<std::string> rowNames = {});
 
   void setPause(bool paused);
   void setDirection(int dir);
@@ -28,6 +29,7 @@ public:
 
 private:
   Halley::Vector2i frameSize;
+  Halley::Vector2i imageSize;
   Halley::Vector2i gridCount;
   double speed;
   std::map<std::string, size_t> rowNameLookup; // "up" => 0
