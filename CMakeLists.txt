@@ -12,6 +12,7 @@ include(HalleyProject)
 set (SOURCES
     src/main.cpp
     src/MyStage.cpp
+    src/types/GridAnimationPlayer.cpp
 )
 
 set (HEADERS

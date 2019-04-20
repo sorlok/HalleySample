@@ -80,7 +80,7 @@ void MyStage::createPlayer(Vector2f pos) {
     .addComponent(PositionComponent(pos))
     .addComponent(VelocityComponent(Vector2f(0, 0), Vector2f()))
 //    .addComponent(SpriteAnimationComponent(AnimationPlayer(getResource<Animation>("Hero"))))
-    .addComponent(SpriteAnimationComponent(GridAnimationPlayer(32,48)))
+    .addComponent(SpriteAnimationComponent(GridAnimationPlayer(Vector2i(32,48), Vector2i(6,4), 5.0, {"up","down","left","right"})))
 
 
 
