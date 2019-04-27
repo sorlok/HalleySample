@@ -63,18 +63,16 @@ void MyStage::createPlayer(Vector2f pos) {
 //std::cout <<"BLAH: " <<blah->getName() <<std::endl;
 
   // NOTE: Add a non-player.
-/*
   world->createEntity()
     .addComponent(PositionComponent(pos-Vector2f(100,100)))
     //.addComponent(SpriteAnimationComponent(AnimationPlayer(getResource<Animation>("Hero"))))
     .addComponent(SpriteComponent(Sprite()
-      .setImage(getResources(), "some_sprite.png")
+      .setImage(getResources(), "tree.png")
       , 0))
     .addComponent(MobComponent(Vector2f(), Vector2f(), 50, 300))
     .addComponent(ShooterComponent(false, Vector2f(), 0))
     .addComponent(ColliderComponent(Rect4f(-13, -13, 26, 26), 0, false, false))
   ;
-*/
 
   auto pl = world->createEntity()
     .addComponent(PositionComponent(pos))
