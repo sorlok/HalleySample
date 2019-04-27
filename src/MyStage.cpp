@@ -68,6 +68,7 @@ void MyStage::createPlayer(Vector2f pos) {
     //.addComponent(SpriteAnimationComponent(AnimationPlayer(getResource<Animation>("Hero"))))
     .addComponent(SpriteComponent(Sprite()
       .setImage(getResources(), "tree.png")
+      .setPivot(Vector2f(0.5f, 0.25f))
       , 0))
     .addComponent(MobComponent(Vector2f(), Vector2f(), 50, 300))
     .addComponent(ShooterComponent(false, Vector2f(), 0))
