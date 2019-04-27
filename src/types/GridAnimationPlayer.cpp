@@ -49,9 +49,6 @@ void GridAnimationPlayer::updateSprite(Halley::Sprite& sprite) const
   auto clip = Halley::Rect4f(-w/2, -h/2, w, h);
   auto pivot = Halley::Vector2f((currFrame.x*w+w/2.0)/imageSize.x, (currFrame.y*h+h/2.0)/imageSize.y);
 
-
-std::cout <<"For currFrame: " <<currFrame <<" setting clip: " <<clip <<" and pivot: " <<pivot <<" with tex: " <<imageSize <<std::endl;
-
   sprite.setPivot(pivot);
   sprite.setClip(clip);
 }
