@@ -33,6 +33,8 @@ component:
   name: SpriteAnimation
   members:
     - player: 'GridAnimationPlayer'
+    - idleSpeed: float
+    - moveSpeed: float
 
 ---
 

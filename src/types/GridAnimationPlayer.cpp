@@ -4,8 +4,8 @@
 
 using namespace Halley;
 
-GridAnimationPlayer::GridAnimationPlayer(Vector2i frameSize, Vector2i imageSize, Vector2i gridCount, double speed, std::vector<std::string> rowNames)
-  : frameSize(frameSize), imageSize(imageSize), gridCount(gridCount), speed(speed), remainder(0), paused(false)
+GridAnimationPlayer::GridAnimationPlayer(Vector2i frameSize, Vector2i imageSize, Vector2i gridCount, std::vector<std::string> rowNames, bool fwdBack)
+  : frameSize(frameSize), imageSize(imageSize), gridCount(gridCount), speed(1), remainder(0), fwdBack(fwdBack?1:0)
 {
   // Build the lookup
   for (size_t i=0; i<rowNames.size(); i++) {
@@ -18,9 +18,9 @@ GridAnimationPlayer::GridAnimationPlayer(Vector2i frameSize, Vector2i imageSize,
 }
 
 
-void GridAnimationPlayer::setPause(bool paused)
+void GridAnimationPlayer::setSpeed(double speed)
 {
-  this->paused = paused;
+  this->speed = speed;
 }
 
 void GridAnimationPlayer::setDirection(const std::string& keyname)
@@ -39,12 +39,25 @@ void GridAnimationPlayer::setDirection(int dir)
   }
 }
 
+bool GridAnimationPlayer::isPaused() const
+{
+  return speed == 0;
+}
+
 void GridAnimationPlayer::update(Halley::Time time)
 {
-  if (!paused) {
+  if (!isPaused()) {
     remainder += time * speed;
     if (remainder >= 1.0) {
-      currFrame.x = (currFrame.x + 1) % gridCount.x;
+      if (fwdBack > 0) {
+        currFrame.x += 1;
+        if (currFrame.x+1 >= gridCount.x) { fwdBack *= -1; }
+      } else if (fwdBack < 0) {
+        currFrame.x -= 1;
+        if (currFrame.x <= 0) { fwdBack *= -1; }
+      } else {
+        currFrame.x = (currFrame.x + 1) % gridCount.x;
+      }
       remainder -= 1.0;
     }
   }
