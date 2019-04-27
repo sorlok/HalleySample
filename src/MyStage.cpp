@@ -74,25 +74,32 @@ void MyStage::createPlayer(Vector2f pos) {
     .addComponent(ColliderComponent(Rect4f(-13, -13, 26, 26), 0, false, false))
   ;
 
+/*
   auto pl = world->createEntity()
     .addComponent(PositionComponent(pos))
     .addComponent(VelocityComponent(Vector2f(0, 0), Vector2f()))
-//    .addComponent(SpriteAnimationComponent(AnimationPlayer(getResource<Animation>("Hero"))))
     .addComponent(SpriteAnimationComponent(GridAnimationPlayer(Vector2i(32,48), Vector2i(192,192), Vector2i(6,4), 5.0, {"up","down","left","right"})))
-
-
-
     .addComponent(SpriteComponent(Sprite()
       .setImage(getResources(), "some_sprite.png")
-      //.setSprite(getResources(), "some_sprite.json", "U_0.png")
       , 0))
     .addComponent(MobComponent(Vector2f(), Vector2f(), 50, 300))
     .addComponent(PlayerInputComponent(input))
-//    .addComponent(PlayerComponent())
     .addComponent(ShooterComponent(false, Vector2f(), 0))
-//    .addComponent(GunComponent(0.1f, "machinegun"))
     .addComponent(ColliderComponent(Rect4f(-13, -13, 26, 26), 0, false, false))
-//    .addComponent(RepulseFieldComponent(10)
+  ;
+*/
+
+  auto pl = world->createEntity()
+    .addComponent(PositionComponent(pos))
+    .addComponent(VelocityComponent(Vector2f(0, 0), Vector2f()))
+    .addComponent(SpriteAnimationComponent(GridAnimationPlayer(Vector2i(122,114), Vector2i(366,456), Vector2i(3,4), 5.0, {"down","left","right","up"})))
+    .addComponent(SpriteComponent(Sprite()
+      .setImage(getResources(), "phoenix.png")
+      , 0))
+    .addComponent(MobComponent(Vector2f(), Vector2f(), 50, 300))
+    .addComponent(PlayerInputComponent(input))
+    .addComponent(ShooterComponent(false, Vector2f(), 0))
+    .addComponent(ColliderComponent(Rect4f(-13, -13, 26, 26), 0, false, false))
   ;
 
   playerId = pl.getEntityId();

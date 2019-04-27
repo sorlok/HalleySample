@@ -7,7 +7,7 @@ public:
 		auto& sprite = mainFamily.sprite.sprite;
 
 		auto vel = mainFamily.mob.faceDir;
-		int dir = std::abs(vel.y) > std::abs(vel.x) ? (vel.y < 0 ? 0 : 1) : (vel.x < 0 ? 2 : 3);
+		std::string dir = std::abs(vel.y) > std::abs(vel.x) ? (vel.y < 0 ? "up" : "down") : (vel.x < 0 ? "left" : "right");
 
 		auto& player = mainFamily.spriteAnimation.player;
 

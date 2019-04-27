@@ -23,6 +23,15 @@ void GridAnimationPlayer::setPause(bool paused)
   this->paused = paused;
 }
 
+void GridAnimationPlayer::setDirection(const std::string& keyname)
+{
+  auto it = rowNameLookup.find(keyname);
+  if (it == rowNameLookup.end()) {
+    throw std::runtime_error(std::string("GridAnimation; key does not exist: " + keyname).c_str());
+  }
+  setDirection(it->second);
+}
+
 void GridAnimationPlayer::setDirection(int dir)
 {
   if (dir>=0 && dir<gridCount.y) {
