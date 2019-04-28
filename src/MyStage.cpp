@@ -75,7 +75,7 @@ void MyStage::createMap(Vector2f pos) {
   const Json::Value& layers = root["layers"];
   for (int id=0; id<layers.size(); id++) {
     const Json::Value& layer = layers[id];
-    std::cout <<"Parsing layer: " <<layer["name"] <<std::endl;
+    std::cout <<"Parsing layer: " <<layer["name"].asString() <<std::endl;
 
     // Sanity check
     if (layer["x"].asUInt()!=0 || layer["y"].asUInt()!=0 || layer["width"].asUInt()!=mapSize.x || layer["height"].asUInt()!=mapSize.y) { throw std::runtime_error("Offset or non-full-width layers not supported."); }
