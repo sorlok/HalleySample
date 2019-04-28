@@ -10,6 +10,7 @@ public:
   void onFixedUpdate(Halley::Time) override;
   void onRender(Halley::RenderContext&) const override;
 
+  void createMap(Halley::Vector2f pos);
   void createPlayer(Halley::Vector2f pos);
 
 private:

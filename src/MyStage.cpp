@@ -9,6 +9,9 @@
 #include <components/mob_component.h>
 #include <components/shooter_component.h>
 #include <components/player_input_component.h>
+
+#include <halley/halley_json.h>
+
 #include "types/GridAnimationPlayer.hpp"
 
 
@@ -18,6 +21,7 @@ void MyStage::init()
 {
   world = createWorld("game_world", createSystem);
 
+  createMap(Vector2f(0,0));
   createPlayer(Vector2f(350, 350));
   //createEnemy(Vector2f(400, 400))
 }
@@ -49,6 +53,27 @@ void MyStage::onRender(RenderContext& context) const
 }
 
 
+
+void MyStage::createMap(Vector2f pos) {
+  // Load the json file
+  auto srcBytes = getResources().get<BinaryFile>("sample_map.json")->getBytes();
+  Json::Value root;
+  Json::Reader reader;
+  bool parsingSuccessful = reader.parse((const char*)srcBytes.data(), (const char*)srcBytes.data() + srcBytes.size(), root );
+  if ( !parsingSuccessful ){
+    throw std::runtime_error("Error reading json data for sample_map.json");
+  }
+
+  // Process the data (create sprites)
+
+
+std::cout <<"TEST: " <<root["width"].asUInt() <<" x " <<root["height"].asUInt() <<std::endl;
+  
+
+
+}
+
+
 void MyStage::createPlayer(Vector2f pos) {
   auto keyboard = getAPI().input->getKeyboard(0);
 
@@ -58,37 +83,21 @@ void MyStage::createPlayer(Vector2f pos) {
   input->bindAxisButton(2, keyboard, Keys::Left, Keys::Right);
   input->bindAxisButton(3, keyboard, Keys::Up, Keys::Down);
 
-// TODO: This is what crashes.
-//auto blah = getResource<Animation>("Hero");
-//std::cout <<"BLAH: " <<blah->getName() <<std::endl;
+
+
+  // TODO: How best to do tilesets
+
+
 
   // NOTE: Add a non-player.
   world->createEntity()
     .addComponent(PositionComponent(pos-Vector2f(100,100)))
-    //.addComponent(SpriteAnimationComponent(AnimationPlayer(getResource<Animation>("Hero"))))
-    .addComponent(SpriteComponent(Sprite()
-      .setImage(getResources(), "tree.png")
-      .setPivot(Vector2f(0.5f, 0.25f))
-      , 0))
-    .addComponent(MobComponent(Vector2f(), Vector2f(), 50, 300))
-    .addComponent(ShooterComponent(false, Vector2f(), 0))
-    .addComponent(ColliderComponent(Rect4f(-13, -13, 26, 26), 0, false, false))
+    .addComponent(SpriteComponent(
+      GridAnimationPlayer::UpdateSprite(
+        Sprite().setImage(getResources(), "grassland.png"), Vector2i(256,256), Vector2i(1024,1024), Vector2i(1,1)
+      ), 0))
   ;
 
-/*
-  auto pl = world->createEntity()
-    .addComponent(PositionComponent(pos))
-    .addComponent(VelocityComponent(Vector2f(0, 0), Vector2f()))
-    .addComponent(SpriteAnimationComponent(GridAnimationPlayer(Vector2i(32,48), Vector2i(192,192), Vector2i(6,4), {"up","down","left","right"}), 0.0, 5.0))
-    .addComponent(SpriteComponent(Sprite()
-      .setImage(getResources(), "some_sprite.png")
-      , 0))
-    .addComponent(MobComponent(Vector2f(), Vector2f(), 50, 300))
-    .addComponent(PlayerInputComponent(input))
-    .addComponent(ShooterComponent(false, Vector2f(), 0))
-    .addComponent(ColliderComponent(Rect4f(-13, -13, 26, 26), 0, false, false))
-  ;
-*/
 
   auto pl = world->createEntity()
     .addComponent(PositionComponent(pos))

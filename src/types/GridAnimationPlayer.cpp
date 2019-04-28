@@ -14,7 +14,6 @@ GridAnimationPlayer::GridAnimationPlayer(Vector2i frameSize, Vector2i imageSize,
       throw std::runtime_error(std::string("GridAnimation; key already exists: " + name).c_str());
     }
   }
-
 }
 
 
@@ -65,6 +64,12 @@ void GridAnimationPlayer::update(Halley::Time time)
 
 void GridAnimationPlayer::updateSprite(Halley::Sprite& sprite) const
 {
+  GridAnimationPlayer::UpdateSprite(sprite, frameSize, imageSize, currFrame);
+}
+
+
+Halley::Sprite& GridAnimationPlayer::UpdateSprite(Halley::Sprite& sprite, Halley::Vector2i frameSize, Halley::Vector2i imageSize, Halley::Vector2i currFrame)
+{
   int w = frameSize.x;
   int h = frameSize.y;
 
@@ -73,6 +78,8 @@ void GridAnimationPlayer::updateSprite(Halley::Sprite& sprite) const
 
   sprite.setPivot(pivot);
   sprite.setClip(clip);
+
+  return sprite;
 }
 
 

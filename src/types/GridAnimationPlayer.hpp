@@ -21,6 +21,9 @@ public:
   GridAnimationPlayer() : speed(0), remainder(0), fwdBack(0) {}
   GridAnimationPlayer(Halley::Vector2i frameSize, Halley::Vector2i imageSize, Halley::Vector2i gridCount, std::vector<std::string> rowNames = {}, bool fwdBack = false);
 
+  // Helper Statics
+  static Halley::Sprite& UpdateSprite(Halley::Sprite& sprite, Halley::Vector2i frameSize, Halley::Vector2i imageSize, Halley::Vector2i currFrame);
+
   void setSpeed(double speed); // 0 == paused
   void setDirection(const std::string& keyname);
   void setDirection(int dir);
