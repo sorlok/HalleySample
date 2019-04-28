@@ -61,9 +61,8 @@ void MyStage::createMap(Vector2f pos) {
   Json::Reader reader;
   bool parsingSuccessful = reader.parse((const char*)srcBytes.data(), (const char*)srcBytes.data() + srcBytes.size(), root );
   std::cout <<"Parsing map: " <<"sample_map.json" <<": " <<(parsingSuccessful ? "Ok" : "FAILED") <<std::endl;
-  if ( !parsingSuccessful ){
-    throw std::runtime_error("Error reading json data for sample_map.json");
-  }
+  if ( !parsingSuccessful ){ throw std::runtime_error("Error reading json data for sample_map.json"); }
+  if (root["renderorder"].asString() != "right-down") { throw std::runtime_error("Error; sample_map.json must have a render order of 'right-down'"); }
 
   // Process the data (create sprites)
   Vector2i mapSize(root["width"].asUInt(), root["height"].asUInt());
@@ -94,10 +93,10 @@ void MyStage::createMap(Vector2f pos) {
         // Make it.
         // TODO: Translate layer ID.
         world->createEntity()
-          .addComponent(PositionComponent(pos-Vector2f(pos.x+x*tileSize.x, pos.y+y*tileSize.y)))
+          .addComponent(PositionComponent(pos + Vector2f(x*tileSize.x, y*tileSize.y)))
           .addComponent(SpriteComponent(
             GridAnimationPlayer::UpdateSprite(
-              Sprite().setImage(getResources(), "grassland.png"), tileSize, tilesetImageSize, Vector2i(tileId%tilesetTilesSize.x,tileId/tilesetTilesSize.x)
+              Sprite().setImage(getResources(), "grassland.png"), Vector2i(tileSize.x+1,tileSize.y+1), tilesetImageSize, Vector2i(tileId%tilesetTilesSize.x,tileId/tilesetTilesSize.x)
             ), id));
       }
     }
