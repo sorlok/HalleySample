@@ -92,11 +92,12 @@ void MyStage::createMap(Vector2f pos) {
 
         // Make it.
         // TODO: Translate layer ID.
+        auto nudge = 0; // TODO: why?
         world->createEntity()
           .addComponent(PositionComponent(pos + Vector2f(x*tileSize.x, y*tileSize.y)))
           .addComponent(SpriteComponent(
             GridAnimationPlayer::UpdateSprite(
-              Sprite().setImage(getResources(), "grassland.png"), Vector2i(tileSize.x+1,tileSize.y+1), tilesetImageSize, Vector2i(tileId%tilesetTilesSize.x,tileId/tilesetTilesSize.x)
+              Sprite().setImage(getResources(), "grassland.png"), Vector2i(tileSize.x+nudge,tileSize.y+nudge), tilesetImageSize, Vector2i(tileId%tilesetTilesSize.x,tileId/tilesetTilesSize.x)
             ), id));
       }
     }
