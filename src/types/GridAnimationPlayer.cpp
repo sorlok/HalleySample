@@ -73,6 +73,8 @@ Halley::Sprite& GridAnimationPlayer::UpdateSprite(Halley::Sprite& sprite, Halley
   int w = frameSize.x;
   int h = frameSize.y;
 
+//if (imageSize.x==1024) { std::cout <<"TEST: " <<frameSize <<" => " <<imageSize <<" => " <<currFrame <<std::endl; }
+
   auto clip = Halley::Rect4f(-w/2, -h/2, w, h);
   auto pivot = Halley::Vector2f((currFrame.x*w+w/2.0)/imageSize.x, (currFrame.y*h+h/2.0)/imageSize.y);
 

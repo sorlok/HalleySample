@@ -60,16 +60,62 @@ void MyStage::createMap(Vector2f pos) {
   Json::Value root;
   Json::Reader reader;
   bool parsingSuccessful = reader.parse((const char*)srcBytes.data(), (const char*)srcBytes.data() + srcBytes.size(), root );
+  std::cout <<"Parsing map: " <<"sample_map.json" <<": " <<(parsingSuccessful ? "Ok" : "FAILED") <<std::endl;
   if ( !parsingSuccessful ){
     throw std::runtime_error("Error reading json data for sample_map.json");
   }
 
   // Process the data (create sprites)
+  Vector2i mapSize(root["width"].asUInt(), root["height"].asUInt());
+  Vector2i tileSize(root["tilewidth"].asUInt(), root["tileheight"].asUInt());
+  Vector2i tilesetImageSize(1024,1024); // For the tileset
+  Vector2i tilesetTilesSize(tilesetImageSize.x/tileSize.x,tilesetImageSize.y/tileSize.y); // For the tileset (in tiles)
+  uint nextObjectId = root["nextobjectid"].asUInt(); // Anything below this is skipped.
 
+  // Read all layers
+  const Json::Value& layers = root["layers"];
+  for (int id=0; id<layers.size(); id++) {
+    const Json::Value& layer = layers[id];
+    std::cout <<"Parsing layer: " <<layer["name"] <<std::endl;
 
-std::cout <<"TEST: " <<root["width"].asUInt() <<" x " <<root["height"].asUInt() <<std::endl;
+    // Sanity check
+    if (layer["x"].asUInt()!=0 || layer["y"].asUInt()!=0 || layer["width"].asUInt()!=mapSize.x || layer["height"].asUInt()!=mapSize.y) { throw std::runtime_error("Offset or non-full-width layers not supported."); }
+
+    // Read data
+    const Json::Value& data = layers[id]["data"];
+    for (size_t y=0; y<mapSize.y; y++) {
+      for (size_t x=0; x<mapSize.y; x++) {
+        uint tileId = data[int(y*mapSize.x+x)].asUInt();
+        if (tileId < nextObjectId) { continue; }
+
+        // Convert to 0-offset; index.
+        tileId -= nextObjectId;
+
+        // Make it.
+        // TODO: Translate layer ID.
+        world->createEntity()
+          .addComponent(PositionComponent(pos-Vector2f(pos.x+x*tileSize.x, pos.y+y*tileSize.y)))
+          .addComponent(SpriteComponent(
+            GridAnimationPlayer::UpdateSprite(
+              Sprite().setImage(getResources(), "grassland.png"), tileSize, tilesetImageSize, Vector2i(tileId%tilesetTilesSize.x,tileId/tilesetTilesSize.x)
+            ), id));
+      }
+    }
+
+  }
+
   
 
+  
+
+/* // TODO:
+  world->createEntity()
+    .addComponent(PositionComponent(pos-Vector2f(100,100)))
+    .addComponent(SpriteComponent(
+      GridAnimationPlayer::UpdateSprite(
+        Sprite().setImage(getResources(), "grassland.png"), Vector2i(256,256), Vector2i(1024,1024), Vector2i(1,1)
+      ), 0));
+*/
 
 }
 
@@ -90,6 +136,7 @@ void MyStage::createPlayer(Vector2f pos) {
 
 
   // NOTE: Add a non-player.
+  /*
   world->createEntity()
     .addComponent(PositionComponent(pos-Vector2f(100,100)))
     .addComponent(SpriteComponent(
@@ -97,6 +144,7 @@ void MyStage::createPlayer(Vector2f pos) {
         Sprite().setImage(getResources(), "grassland.png"), Vector2i(256,256), Vector2i(1024,1024), Vector2i(1,1)
       ), 0))
   ;
+  */
 
 
   auto pl = world->createEntity()
@@ -105,7 +153,7 @@ void MyStage::createPlayer(Vector2f pos) {
     .addComponent(SpriteAnimationComponent(GridAnimationPlayer(Vector2i(122,114), Vector2i(366,456), Vector2i(3,4), {"down","left","right","up"}, true), 2.5, 5.0))
     .addComponent(SpriteComponent(Sprite()
       .setImage(getResources(), "phoenix.png")
-      , 0))
+      , 99))
     .addComponent(MobComponent(Vector2f(), Vector2f(), 50, 300))
     .addComponent(PlayerInputComponent(input))
     .addComponent(ShooterComponent(false, Vector2f(), 0))
