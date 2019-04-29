@@ -177,12 +177,14 @@ void MyStage::createEnemy(Vector2f pos) {
   if (val==2) { dir.x = 1; }
   if (val==3) { dir.y = -1; }
 
+  auto spr = ::rand()%100<25 ? "dknight.png" : "minotaur.png";
+
   auto en = world->createEntity()
     .addComponent(PositionComponent(pos))
     .addComponent(VelocityComponent(Vector2f(0, 0), Vector2f()))
     .addComponent(SpriteAnimationComponent(GridAnimationPlayer(Vector2i(282/3,400/4), Vector2i(282,400), Vector2i(3,4), {"down","left","right","up"}, true), 2.5, 5.0))
     .addComponent(SpriteComponent(Sprite()
-      .setImage(getResources(), "minotaur.png")
+      .setImage(getResources(), spr)
       , 99))
     .addComponent(MobComponent(Vector2f(), dir, 50, 300))
     .addComponent(ShooterComponent(false, Vector2f(), 0))
