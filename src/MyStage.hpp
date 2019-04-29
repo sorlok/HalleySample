@@ -12,6 +12,7 @@ public:
 
   void createMap(Halley::Vector2f pos);
   void createPlayer(Halley::Vector2f pos);
+  void createEnemy(Halley::Vector2f pos);
 
 private:
   std::unique_ptr<Halley::World> world;

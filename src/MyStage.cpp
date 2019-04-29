@@ -21,9 +21,10 @@ void MyStage::init()
 {
   world = createWorld("game_world", createSystem);
 
+  Vector2f playerPos(100*32/2, 100*32/2);
   createMap(Vector2f(0,0));
-  createPlayer(Vector2f(350, 350));
-  //createEnemy(Vector2f(400, 400))
+  createPlayer(playerPos);
+  createEnemy(playerPos + Vector2f(100, 50));
 }
 
 void MyStage::onVariableUpdate(Time t)
@@ -145,5 +146,29 @@ void MyStage::createPlayer(Vector2f pos) {
 
   playerId = pl.getEntityId();
 }
+
+
+
+void MyStage::createEnemy(Vector2f pos) {
+  world->createEntity()
+    .addComponent(PositionComponent(pos))
+    .addComponent(VelocityComponent(Vector2f(0, 0), Vector2f()))
+    .addComponent(SpriteAnimationComponent(GridAnimationPlayer(Vector2i(282/3,400/4), Vector2i(282,400), Vector2i(3,4), {"down","left","right","up"}, true), 2.5, 5.0))
+    .addComponent(SpriteComponent(Sprite()
+      .setImage(getResources(), "minotaur.png")
+      , 99))
+    .addComponent(MobComponent(Vector2f(), Vector2f(), 50, 300))
+    .addComponent(ShooterComponent(false, Vector2f(), 0))
+    .addComponent(ColliderComponent(Rect4f(-13, -13, 26, 26), 0, false, false))
+  ;
+}
+
+
+
+
+
+
+
+
 
 
