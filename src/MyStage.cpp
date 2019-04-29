@@ -1,6 +1,9 @@
 #include "MyStage.hpp"
 #include "registry.h"
 
+#include <cstdlib>
+#include <algorithm>
+
 #include <components/position_component.h>
 #include <components/velocity_component.h>
 #include <components/sprite_component.h>
@@ -24,7 +27,19 @@ void MyStage::init()
   Vector2f playerPos(100*32/2, 100*32/2);
   createMap(Vector2f(0,0));
   createPlayer(playerPos);
-  createEnemy(playerPos + Vector2f(100, 50));
+
+  // Make a bunch of random enemies
+  ::srand (time(NULL));
+  for (int y=0; y<10; y++) {
+    for (int x=0; x<10; x++) {
+      if (x!=5 && y!=5) {
+        int xOff = ::rand()%10;
+        int yOff = ::rand()%10;
+        Vector2f pos((x*10+xOff)*32, (y*10+yOff)*32);
+        createEnemy(pos);
+      }
+    }
+  }
 }
 
 void MyStage::onVariableUpdate(Time t)
@@ -41,6 +56,11 @@ void MyStage::onRender(RenderContext& context) const
 {
   // Follow the player.
   Vector2f playerPos = world->getEntity(playerId).getComponent<PositionComponent>().position;
+
+  // NOTE: Shortcut
+  playerPos.x = std::max(std::min(playerPos.x, 2540.0f), 625.0f);
+  playerPos.y = std::max(std::min(playerPos.y, 2824.0f), 350.0f);
+
   Camera cam(playerPos);
   RenderContext rc = context.with(cam);
 
@@ -150,14 +170,21 @@ void MyStage::createPlayer(Vector2f pos) {
 
 
 void MyStage::createEnemy(Vector2f pos) {
-  world->createEntity()
+  auto val = ::rand()%4;
+  Vector2f dir(0,0);
+  if (val==0) { dir.y = 1; }
+  if (val==1) { dir.x = -1; }
+  if (val==2) { dir.x = 1; }
+  if (val==3) { dir.y = -1; }
+
+  auto en = world->createEntity()
     .addComponent(PositionComponent(pos))
     .addComponent(VelocityComponent(Vector2f(0, 0), Vector2f()))
     .addComponent(SpriteAnimationComponent(GridAnimationPlayer(Vector2i(282/3,400/4), Vector2i(282,400), Vector2i(3,4), {"down","left","right","up"}, true), 2.5, 5.0))
     .addComponent(SpriteComponent(Sprite()
       .setImage(getResources(), "minotaur.png")
       , 99))
-    .addComponent(MobComponent(Vector2f(), Vector2f(), 50, 300))
+    .addComponent(MobComponent(Vector2f(), dir, 50, 300))
     .addComponent(ShooterComponent(false, Vector2f(), 0))
     .addComponent(ColliderComponent(Rect4f(-13, -13, 26, 26), 0, false, false))
   ;

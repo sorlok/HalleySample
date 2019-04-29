@@ -122,6 +122,7 @@ system:
   families:
     - main:
       - Mob: write
+      - Position: read
       - Shooter: write
       - PlayerInput: read
 
