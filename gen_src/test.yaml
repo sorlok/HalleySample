@@ -103,6 +103,7 @@ component:
   name: TTL
   members:
     - timeLeft: float
+    - onScreenOk: bool
 
 ---
 
@@ -133,6 +134,20 @@ system:
       - Sprite: write
       - SpriteAnimation: write
       - Mob: read
+
+---
+
+system:
+  name: ExpireTTL
+  families:
+    - main:
+      - TTL: write
+      - Position: read
+    - player:
+      - Position: read
+      - PlayerInput: read
+  strategy: global
+  access: ['world', 'api']
 
 ---
 

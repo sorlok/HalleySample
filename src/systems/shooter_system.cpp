@@ -43,7 +43,7 @@ private:
           Sprite().setImage(getAPI().core->getResources(), "bubbles.png"), Vector2i(32,32), Vector2i(64,64), Vector2i(0,0)
         ), 188))
       .addComponent(BulletComponent(damage))
-      .addComponent(TTLComponent(ttl));
+      .addComponent(TTLComponent(ttl, true));
       //.addComponent(ColliderComponent(Rect4f(-5, -5, 10, 10), 2, false, false));
       //.setRotation(dir.angle())
 
