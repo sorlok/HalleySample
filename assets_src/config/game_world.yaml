@@ -14,7 +14,7 @@ timelines:
     
     # General phase:
     #- Repulsion
-    #- Shooter
+    - Shooter
     #- Bullet
     #- Damage
     #- EnemyDeath

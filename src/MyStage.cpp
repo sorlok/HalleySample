@@ -130,23 +130,6 @@ void MyStage::createPlayer(Vector2f pos) {
   input->bindAxisButton(3, keyboard, Keys::Up, Keys::Down);
 
 
-
-  // TODO: How best to do tilesets
-
-
-
-  // NOTE: Add a non-player.
-  /*
-  world->createEntity()
-    .addComponent(PositionComponent(pos-Vector2f(100,100)))
-    .addComponent(SpriteComponent(
-      GridAnimationPlayer::UpdateSprite(
-        Sprite().setImage(getResources(), "grassland.png"), Vector2i(256,256), Vector2i(1024,1024), Vector2i(1,1)
-      ), 0))
-  ;
-  */
-
-
   auto pl = world->createEntity()
     .addComponent(PositionComponent(pos))
     .addComponent(VelocityComponent(Vector2f(0, 0), Vector2f()))
@@ -161,10 +144,6 @@ void MyStage::createPlayer(Vector2f pos) {
   ;
 
   playerId = pl.getEntityId();
-
-
-
-
 }
 
 

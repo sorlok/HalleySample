@@ -92,6 +92,30 @@ system:
 
 ---
 
+component:
+  name: Bullet
+  members:
+    - damage: int
+
+---
+
+component:
+  name: TTL
+  members:
+    - timeLeft: float
+
+---
+
+system:
+  name: Shooter
+  families:
+    - main:
+      - Shooter: write
+      - Position: read
+  access: ['world', 'api']
+
+---
+
 system:
   name: PlayerInput
   families:

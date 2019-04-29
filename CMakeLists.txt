@@ -23,6 +23,7 @@ set (GENS
 	#    gen_src/trapped.yaml  # ????
 )
 
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src) 
 
 
 halleyProject(sample_game "${SOURCES}" "${HEADERS}" "${GENS}" ${CMAKE_CURRENT_SOURCE_DIR}/bin)
